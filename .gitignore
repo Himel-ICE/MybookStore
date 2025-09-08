@@ -52,3 +52,12 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+.vs
+/BulkyWeb/bin/
+/BulkyWeb/obj/
+/Bulky.DataAccess/bin/
+/Bulky.DataAccess/obj/
+/Bulky.Models/bin/
+/Bulky.Models/obj/
+/Bulky.Utility/bin/
+/Bulky.Utility/obj/
