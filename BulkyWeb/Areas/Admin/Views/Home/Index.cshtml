@@ -1,0 +1,95 @@
+﻿@model Bulky.Models.ViewModels.DashboardVM
+
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2> Dashboard</h2>
+<hr />
+
+<div class="row mb-4">
+
+    <div class="col-md-4">
+        <div class="card text-white bg-primary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Sales Today</h5>
+                <p class="card-text fs-4">$@Model.TotalCell.ToString("F2")</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-white bg-secondary mb-3">
+            <div class="card-body">
+                <h5 class="card-title">Total Orders</h5>
+                <p class="card-text fs-4">@Model.OrderCount</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr />
+
+<h3>Pending Orders</h3>
+@if (Model.OrderHeaders != null && Model.OrderHeaders.Any())
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Order Id</th>
+                <th>Customer</th>
+                <th>Order Date</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model.OrderHeaders)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@order.Name</td>
+                    <td>@order.OrderDate.ToString("yyyy-MM-dd")</td>
+                    <td>@order.OrderTotal</td>
+                    <td>@order.OrderStatus</td>
+                    <td>
+                        <a asp-area="Admin" asp-controller="Order" asp-action="Index" class="btn btn-secondary">Manage Order</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No pending orders found.</p>
+}
+
+<hr />
+
+<h3>Top Categories</h3>
+@if (Model.TopCategoryNames != null && Model.TopCategoryNames.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Category</th>
+                <th>Orders</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.TopCategoryNames.Count; i++)
+            {
+                <tr>
+                    <td>@Model.TopCategoryNames[i]</td>
+                    <td>@Model.TopCategoryCounts[i]</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No category sales data available.</p>
+}
